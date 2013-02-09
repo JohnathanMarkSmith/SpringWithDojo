@@ -30,7 +30,7 @@
 		<div id="container">
 			<table>
 				<tr>
-					<td valign="top"><b>Bio:</b></td>
+					<td valign="top"><b>Description:</b></td>
 					<td valign="top">
 					     <form:textarea path="name" cssStyle="width:250px;height:15em" />
 					     <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : "name", widgetType: "dijit.form.Textarea", widgetAttrs: {value: ""}})); </script>

@@ -7,7 +7,7 @@
 <style type="text/css" media="screen">
  @import url("<c:url value="/resources/dojo/resources/dojo.css"/>");
  @import url("<c:url value="/resources/dijit/themes/claro/claro.css"/>");
-</style>     
+</style>
 
 <script djconfig="parseOnLoad: true"
  src="<c:url value="/resources/dojo/dojo.js"/>" type="text/javascript"></script>
@@ -26,17 +26,18 @@ dojo.require("dojox.validate.us");
 <body class="claro">
 	<h2>Social Secuirty Test</h2>
 
+
 	<form:form commandName="customer" id="customer">
 		<input type="hidden" name="_flowExecutionKey"
 			value="${flowExecutionKey}" />
 		<div id="container">
-			
+
 			<div class="dojoTitlePaneLabel">
 				<label for="q20"> US Social Security Number </label>
 				<span class="noticeMessage">UsSocialSecurityNumberTextbox class, 
 					Attributes: {required: true, trim: true} </span>
 			</div>
-			<form:input path="name" class="value" /> 
+			<form:input path="name" class="value" />
 			<div class="testExample">
 			<script	type="text/javascript">
 						Spring.addDecoration(new Spring.ElementDecoration({
@@ -64,16 +65,16 @@ dojo.require("dojox.validate.us");
 														label: "Submit Page",
 														promptMessage : "Click here to submit page"
 													}
-													
+
 												}));
-							</script> 
+							</script>
 
 		<script type="text/javascript">
 			Spring.addDecoration(new Spring.ValidateAllDecoration({
 				elementId : 'submit',
 				event : 'onclick'
 			}));
-			
+
 			Spring.addDecoration(new Spring.AjaxEventDecoration({
 			     elementId: "sex",
 			     event: "onChange",

@@ -1,8 +1,11 @@
 <html>
 <head>
-	<title>Spring 3.0 MVC Series: Hello World - ViralPatel.net</title>
+	<title>Spring MVC</title>
 </head>
 <body>
-	${message}
+     <p>
+     <center>
+     This is the message from the controller: <b>${message}</b>
+     </center>
 </body>
 </html>

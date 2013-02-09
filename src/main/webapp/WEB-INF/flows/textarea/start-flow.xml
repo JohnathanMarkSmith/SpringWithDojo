@@ -7,7 +7,6 @@
 
     <view-state id="textarea-input" model="customer" popup="true">
     		<transition on="submit" to="preview" validate="false"/>
-    		<transition on="cancel" to="thanks" validate="false"/>
 	</view-state>
 
     <view-state id="preview"  model="customer">

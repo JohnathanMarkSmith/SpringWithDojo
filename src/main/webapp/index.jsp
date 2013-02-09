@@ -4,33 +4,30 @@
 
 <html>
 <head>
-	<title>Spring 3.0 MVC Series and Testing Project with Maven</title>
+	<title>Spring MVC, WebFlow, Dojo and Maven Testing Project</title>
 </head>
 <body>
 	<center>
-    <h1>Spring 3.0 MVC Series &<br>Testing Project with Maven</h1>
+    <h1>Spring MVC, WebFlow, Dojo<br>and Maven<br>Testing Project</h1>
     </center>
     <hr>
     <p>
-    <a href="login.jsp">Login</a><p><p>
     <p>
-    <h2>Spring 3.0 MVC</h2>
-    <hr>
-    <p>
-	<a href="hello.html">Say Hello (Spring MVC)</a><p>
+    <fieldset><legend>Spring MVC</legend>
+        <a href="hello.html">Say Hello (Spring MVC)</a>
+        </fieldset>
 	<p>
-	<h2>Spring Web Flow</h2>
-	<hr>
-	<p>
-	<a href="./helloworld">Say Hello (Spring-Web-Flow)</a><br>
-	<a href="./checkbox">CheckBox with Dojo (Spring-Web-Flow)</a><br>
-	<a href="./dropdown">Dropdown with Dojo (Spring-Web-Flow)</a><br>
-	<a href="./dropdownworkaround">Dropdown(workaround fix) with Dojo (Spring-Web-Flow)</a><br>
-	<a href="./radiobutton">Radio Button with Dojo (Spring-Web-Flow)</a><br>
-	<a href="./fieldsize">Field Size with Dojo (Spring-Web-Flow)</a><br>
-	<a href="./socialsecuirtynumber">Social Secuirty Field with Dojo (Spring-Web-Flow)</a><br>
-	<a href="./formbutton">Form Button with Dojo (Spring-Web-Flow)</a><br>
-	<a href="./textarea">TextArea with Dojo (Spring-Web-Flow)</a><br>
-	<a href="./pane">Pane Play with Dojo (Spring-Web-Flow)</a><br>
+    <fieldset><legend>Spring Web Flow with Dojo</legend>
+	<a href="./helloworld">Customer Registration with Spring Security Login</a><br>
+	<a href="./checkbox">CheckBox with Dojo</a><br>
+	<a href="./dropdown">Dropdown with Dojo</a><br>
+	<a href="./dropdownworkaround">Dropdown(workaround fix) with Dojo</a><br>
+	<a href="./radiobutton">Radio Button with Dojo</a><br>
+	<a href="./fieldsize">Field Size with Dojo</a><br>
+	<a href="./socialsecuirtynumber">Social Secuirty Field with Dojo </a><br>
+	<a href="./formbutton">Form Button with Dojo </a><br>
+	<a href="./textarea">TextArea with Dojo </a><br>
+	<a href="./pane">Pane Play with Dojo </a><br>
+    </fieldset>
 </body>
 </html>

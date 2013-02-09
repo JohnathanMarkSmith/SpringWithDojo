@@ -12,7 +12,7 @@
 	<h1><center>Preview Data Page</center></h1>
 	<hr>
 	<p>
-	  <b>Name: </b>${customer.name}<br/>
+	  <b>Description: </b>${customer.name}<br/>
     </body>
 	<p>
 </body>
