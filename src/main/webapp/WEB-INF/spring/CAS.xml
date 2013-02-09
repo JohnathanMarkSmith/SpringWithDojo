@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+						http://www.springframework.org/schema/security
+						http://www.springframework.org/schema/security/spring-security-3.1.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context-3.1.xsd
+						http://www.springframework.org/schema/util 
+						http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+
+
+	
+
+	<http entry-point-ref="casEntryPoint" use-expressions="true">
+		<intercept-url pattern="/" access="permitAll" />
+
+		<intercept-url pattern="/index.jsp" access="permitAll" />
+		<intercept-url pattern="/cas-logout.jsp" access="permitAll" />
+		<intercept-url pattern="/casfailed.jsp" access="permitAll" />
+
+		<intercept-url access="hasRole('ROLE_MEMBER_INQUIRY')"
+			pattern="/helloworld**" />
+
+		<custom-filter ref="requestSingleLogoutFilter" before="LOGOUT_FILTER" />
+		<custom-filter ref="singleLogoutFilter" before="CAS_FILTER" />
+		<custom-filter ref="casFilter" position="CAS_FILTER" />
+
+
+		<logout logout-success-url="/cas-logout.jsp" />
+	</http>
+
+	<authentication-manager alias="authManager">
+		<authentication-provider ref="casAuthProvider" />
+	</authentication-manager>
+
+
+
+	<ldap-server id="ldapServer"
+		url="ldaps://dvldap01.uftwf.dev:636/dc=uftwf,dc=dev" 
+		manager-dn="cn=Manager,dc=uftwf,dc=dev"
+		manager-password="uftwf" />
+
+	<ldap-user-service id="userServiceLDAP" server-ref="ldapServer"
+		user-search-base="ou=webusers" user-search-filter="(uid={0})"
+
+		group-search-base="ou=groups" group-role-attribute="cn"
+		group-search-filter="(uniqueMember={0})" role-prefix="ROLE_" />
+
+	<!-- This filter handles a Single Logout Request from the CAS Server -->
+	<beans:bean id="singleLogoutFilter"
+		class="org.jasig.cas.client.session.SingleSignOutFilter" />
+	<!-- This filter redirects to the CAS Server to signal Single Logout should 
+		be performed -->
+	<beans:bean id="requestSingleLogoutFilter"
+		class="org.springframework.security.web.authentication.logout.LogoutFilter"
+		p:filterProcessesUrl="/j_spring_cas_security_logout">
+		<beans:constructor-arg
+			value="https://${cas.server.host}/cas-server-webapp/logout" />
+		<beans:constructor-arg>
+			<beans:bean
+				class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
+		</beans:constructor-arg>
+	</beans:bean>
+
+	<beans:bean id="serviceProperties"
+		class="org.springframework.security.cas.ServiceProperties"
+		p:service="http://${cas.service.host}/WebFlowTemplate/j_spring_cas_security_check"
+		p:authenticateAllArtifacts="true" />
+
+	<beans:bean id="casEntryPoint"
+		class="org.springframework.security.cas.web.CasAuthenticationEntryPoint"
+		p:serviceProperties-ref="serviceProperties"
+		p:loginUrl="https://${cas.server.host}/cas-server-webapp/login" />
+
+	<beans:bean id="casFilter"
+		class="org.springframework.security.cas.web.CasAuthenticationFilter"
+		p:authenticationManager-ref="authManager" p:serviceProperties-ref="serviceProperties"
+		p:proxyGrantingTicketStorage-ref="pgtStorage"
+		p:proxyReceptorUrl="/j_spring_cas_security_proxyreceptor">
+		<beans:property name="authenticationDetailsSource">
+			<beans:bean
+				class="org.springframework.security.cas.web.authentication.ServiceAuthenticationDetailsSource" />
+		</beans:property>
+
+		<beans:property name="authenticationFailureHandler">
+			<beans:bean
+				class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler"
+				p:defaultFailureUrl="/casfailed.jsp" />
+		</beans:property>
+
+
+		<beans:property name="authenticationSuccessHandler">
+			<beans:bean
+				class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler"
+				p:defaultTargetUrl="/helloworld" />
+		</beans:property>
+	</beans:bean>
+	<!-- NOTE: In a real application you should not use an in memory implementation. 
+		You will also want to ensure to clean up expired tickets by calling ProxyGrantingTicketStorage.cleanup() -->
+	<beans:bean id="pgtStorage"
+		class="org.jasig.cas.client.proxy.ProxyGrantingTicketStorageImpl" />
+	<beans:bean id="casAuthProvider"
+		class="org.springframework.security.cas.authentication.CasAuthenticationProvider"
+		p:serviceProperties-ref="serviceProperties" p:key="casAuthProviderKey">
+		<beans:property name="authenticationUserDetailsService">
+			<beans:bean
+				class="org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper">
+				<beans:constructor-arg ref="userServiceLDAP" />
+			</beans:bean>
+		</beans:property>
+
+
+
+		<beans:property name="ticketValidator">
+			<beans:bean
+				class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator">
+				<beans:constructor-arg index="0"
+					value="https://${cas.server.host}/cas-server-webapp" />
+			</beans:bean>
+		</beans:property>
+	</beans:bean>
+
+	<!-- Configuration for the environment can be overriden by system properties -->
+	<context:property-placeholder
+		system-properties-mode="OVERRIDE" properties-ref="environment" />
+
+	<util:properties id="environment">
+		<beans:prop key="cas.service.host">wcmisdlin07.uftmasterad.org:8080</beans:prop>
+		<beans:prop key="cas.server.host">6dvews01.uftwf.dev:8443</beans:prop>
+	</util:properties>
+
+
+</beans:beans>
