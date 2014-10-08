@@ -1,6 +1,35 @@
-This is a sample project I made to show how to use Maven, Spring, Webflow and Dojo.
+This is a sample project I made to show how to use Maven, Spring, Webflow and Dojo. You will find a number of examples that can help  you
 
-Please feel free to update this project
+## Examples in this project:
+    Say Hello (Spring MVC)
+
+	Customer Registration with Spring Security Login
+	CheckBox with Dojo
+	Dropdown with Dojo
+	Dropdown(workaround fix) with Dojo
+	Radio Button with Dojo
+	Field Size with Dojo
+	Social Secuirty Field with Dojo 
+	Form Button with Dojo 
+	TextArea with Dojo 
+	Pane Play with Dojo 
+
+Please feel free to update this project if you would like
+
+## Getting The Project and Running It
+
+To get this project and run it you will need to follow the following steps:
+
+    git clone git@github.com:JohnathanMarkSmith/SpringWithDojo.git
+    cd SpringWithDojo/
+    mvn tomcat7:run
+
+Now open your web brower and goto http://127.0.0.1:8080/SpringWithDojo/
+
+This its... Have fun with it...
+
+
+If you have any questions or comments please email me at john@johnathanmarksmith.com or checkout my web site http://JohnathanMarkSmith.com
 
 
 
